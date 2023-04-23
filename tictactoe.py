@@ -22,7 +22,15 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    print(board)
+    count = 0
+    for row in board:
+        for cell in row:
+            if cell != EMPTY:
+                count += 1
+    if count % 2 == 0:
+        return X
+    else:
+        return O
 
     # raise NotImplementedError
 
@@ -31,6 +39,13 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
+    actions = set()
+    for row in board:
+        for cell in row:
+            if cell == EMPTY:
+                actions.add((board.index(row), row.index(cell)))
+    return actions
+
     # raise NotImplementedError
 
 
