@@ -11,16 +11,14 @@ O = "O"
 EMPTY = None
 
 
-def initial_state()->List[List[str]]:
+def initial_state() -> List[List[str]]:
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
-def player(board:List[List[str]])->str:
+def player(board: List[List[str]]) -> str:
     """
     Returns player who has the next turn on a board.
     """
@@ -37,7 +35,7 @@ def player(board:List[List[str]])->str:
     # raise NotImplementedError
 
 
-def actions(board:List[List[str]])->Set[Tuple[int, int]]:
+def actions(board: List[List[str]]) -> Set[Tuple[int, int]]:
     """
     Returns set of all possible actions (i, j) available on the board.
     """
@@ -51,7 +49,7 @@ def actions(board:List[List[str]])->Set[Tuple[int, int]]:
     # raise NotImplementedError
 
 
-def result(board:List[List[str]], action:Tuple[int, int])->List[List[str]]:
+def result(board: List[List[str]], action: Tuple[int, int]) -> List[List[str]]:
     """
     Returns the board that results from making move (i, j) on the board.
     """
@@ -64,7 +62,7 @@ def result(board:List[List[str]], action:Tuple[int, int])->List[List[str]]:
     # raise NotImplementedError
 
 
-def winner(board:List[List[str]])->str:
+def winner(board: List[List[str]]) -> str:
     """
     Returns the winner of the game, if there is one.
     """
@@ -82,7 +80,7 @@ def winner(board:List[List[str]])->str:
     # raise NotImplementedError
 
 
-def terminal(board:List[List[str]])->bool:
+def terminal(board: List[List[str]]) -> bool:
     """
     Returns True if game is over, False otherwise.
     """
@@ -95,7 +93,7 @@ def terminal(board:List[List[str]])->bool:
     # raise NotImplementedError
 
 
-def utility(board:List[List[str]])->int:
+def utility(board: List[List[str]]) -> int:
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
@@ -107,10 +105,8 @@ def utility(board:List[List[str]])->int:
         return 0
     # raise NotImplementedError
 
-       
 
-
-def minimax(board:List[List[str]])->Tuple[int, int]:
+def minimax(board: List[List[str]]) -> Tuple[int, int]:
     """
     Returns the optimal action for the current player on the board.
     """
@@ -126,6 +122,7 @@ def minimax(board:List[List[str]])->Tuple[int, int]:
         for action in actions(board):
             v = max(v, min_value(result(board, action)))
         return v
+
     def min_value(board):
         if terminal(board):
             return utility(board)
@@ -133,7 +130,7 @@ def minimax(board:List[List[str]])->Tuple[int, int]:
         for action in actions(board):
             v = min(v, max_value(result(board, action)))
         return v
-    
+
     if player(board) == X:
         best_score = -1
         best_actions = []
@@ -141,7 +138,7 @@ def minimax(board:List[List[str]])->Tuple[int, int]:
             score = min_value(result(board, action))
             if score == best_score:
                 best_actions.append(action)
-            
+
         if len(best_actions) >= 1:
             print(best_actions)
             return random.choice(best_actions)
@@ -149,8 +146,7 @@ def minimax(board:List[List[str]])->Tuple[int, int]:
             print(actions(board))
             action_list = list(actions(board))
             return random.choice(action_list)
-        
-    
+
     else:
         best_score = 1
         best_actions = []
@@ -158,12 +154,9 @@ def minimax(board:List[List[str]])->Tuple[int, int]:
             score = max_value(result(board, action))
             if score == best_score:
                 best_actions.append(action)
-           
-    
+
         if len(best_actions) >= 1:
             return random.choice(best_actions)
         else:
             action_list = list(actions(board))
             return random.choice(action_list)
-            
-
