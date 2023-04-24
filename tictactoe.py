@@ -149,7 +149,6 @@ def minimax(board: List[List[str]]) -> Tuple[int, int]:
                 best_actions.append(action)
 
         if len(best_actions) >= 1:
-            print(best_actions)
             return random.choice(best_actions)
         else:
             action_list = list(actions(board))
