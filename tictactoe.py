@@ -53,6 +53,9 @@ def result(board: List[List[str]], action: Tuple[int, int]) -> List[List[str]]:
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    if action == None:
+        new_board = copy.deepcopy(board)
+        return new_board
     if action not in actions(board):
         raise ValueError
     else:
@@ -86,6 +89,8 @@ def terminal(board: List[List[str]]) -> bool:
     """
     if winner(board) is not None:
         return True
+    if winner(board) is None and not actions(board):
+        return True
     for row in board:
         for cell in row:
             if cell == EMPTY:
@@ -111,6 +116,10 @@ def minimax(board: List[List[str]]) -> Tuple[int, int]:
     Returns the optimal action for the current player on the board.
     """
     if terminal(board):
+        return None
+
+    possible_actions = actions(board)
+    if not possible_actions:
         return None
     # X wants to maximize the utility
     # O wants to minimize the utility
@@ -148,12 +157,10 @@ def minimax(board: List[List[str]]) -> Tuple[int, int]:
             return random.choice(action_list)
 
     else:
-        print("AI", player(board))
         best_score = -1
         best_actions = []
         for action in actions(board):
             score = min_value(result(board, action))
-            print(score)
             if score == best_score:
                 best_actions.append(action)
 
