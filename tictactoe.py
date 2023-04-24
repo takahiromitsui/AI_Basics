@@ -132,10 +132,10 @@ def minimax(board: List[List[str]]) -> Tuple[int, int]:
         return v
 
     if player(board) == X:
-        best_score = -1
+        best_score = 1
         best_actions = []
         for action in actions(board):
-            score = min_value(result(board, action))
+            score = max_value(result(board, action))
             if score == best_score:
                 best_actions.append(action)
 
@@ -148,10 +148,12 @@ def minimax(board: List[List[str]]) -> Tuple[int, int]:
             return random.choice(action_list)
 
     else:
-        best_score = 1
+        print("AI", player(board))
+        best_score = -1
         best_actions = []
         for action in actions(board):
-            score = max_value(result(board, action))
+            score = min_value(result(board, action))
+            print(score)
             if score == best_score:
                 best_actions.append(action)
 
